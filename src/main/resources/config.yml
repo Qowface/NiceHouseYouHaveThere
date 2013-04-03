@@ -1,0 +1,13 @@
+Explosions:
+  Stop Creeper Block Damage: true
+  Stop Fireball Block Damage: true
+  Stop TNT Block Damage: true
+  Stop Wither Skull Block Damage: true
+  Stop Wither Spawn Block Damage: true
+Fire:
+  Stop Fire Spread: true
+Block Changes:
+  Stop Ender Dragon Block Destruction: true
+  Stop Enderman Block Movement: true
+  Stop Sheep From Eating Grass: true
+  Stop Silverfish From Breaking Blocks: true

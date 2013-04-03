@@ -1,0 +1,5 @@
+name: ${project.artifactId}
+version: ${project.version}
+description: ${project.description}
+author: Qowface
+main: ${project.mainClass}
