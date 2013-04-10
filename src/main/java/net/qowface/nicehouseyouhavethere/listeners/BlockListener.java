@@ -1,6 +1,7 @@
 package net.qowface.nicehouseyouhavethere.listeners;
 
 import net.qowface.nicehouseyouhavethere.NiceHouse;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,7 +26,13 @@ public class BlockListener implements Listener {
             return;
         }
         
-        if (config.getBoolean("Fire.Stop Fire Spread")) {
+        World world = event.getBlock().getWorld();
+        
+        if (config.getList("Global Settings.Ignore Worlds").contains(world.getName())) {
+            return;
+        }
+        
+        if (config.getBoolean("Protections.Fire.Stop Fire Spread")) {
             event.setCancelled(true);
         }
     }
@@ -36,7 +43,13 @@ public class BlockListener implements Listener {
             return;
         }
         
-        if (event.getCause() == IgniteCause.SPREAD && config.getBoolean("Fire.Stop Fire Spread")) {
+        World world = event.getBlock().getWorld();
+        
+        if (config.getList("Global Settings.Ignore Worlds").contains(world.getName())) {
+            return;
+        }
+        
+        if (event.getCause() == IgniteCause.SPREAD && config.getBoolean("Protections.Fire.Stop Fire Spread")) {
             event.setCancelled(true);
         }
     }

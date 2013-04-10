@@ -1,6 +1,7 @@
 package net.qowface.nicehouseyouhavethere.listeners;
 
 import net.qowface.nicehouseyouhavethere.NiceHouse;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.EnderDragon;
@@ -33,28 +34,34 @@ public class EntityListener implements Listener {
             return;
         }
         
+        World world = event.getLocation().getWorld();
+        
+        if (config.getList("Global Settings.Ignore Worlds").contains(world.getName())) {
+            return;
+        }
+        
         //If this is a Creeper, cancel explosion block damage.
-        if (event.getEntity() instanceof Creeper && config.getBoolean("Explosions.Stop Creeper Block Damage")) {
+        if (event.getEntity() instanceof Creeper && config.getBoolean("Protections.Explosions.Stop Creeper Block Damage")) {
             event.blockList().clear();
         }
         //If this is TNT, cancel explosion block damage.
-        else if (event.getEntity() instanceof TNTPrimed && config.getBoolean("Explosions.Stop TNT Block Damage")) {
+        else if (event.getEntity() instanceof TNTPrimed && config.getBoolean("Protections.Explosions.Stop TNT Block Damage")) {
             event.blockList().clear();
         }
         //If this is a Fireball, cancel explosion block damage.
-        else if (event.getEntity() instanceof Fireball  && !(event.getEntity() instanceof WitherSkull) && config.getBoolean("Explosions.Stop Fireball Block Damage")) {
+        else if (event.getEntity() instanceof Fireball  && !(event.getEntity() instanceof WitherSkull) && config.getBoolean("Protections.Explosions.Stop Fireball Block Damage")) {
             event.blockList().clear();
         }
         //If this is a Wither Skull, cancel explosion block damage.
-        else if (event.getEntity() instanceof WitherSkull && config.getBoolean("Explosions.Stop Wither Skull Block Damage")) {
+        else if (event.getEntity() instanceof WitherSkull && config.getBoolean("Protections.Explosions.Stop Wither Skull Block Damage")) {
             event.blockList().clear();
         }
         //If this is a Wither, cancel explosion block damage.
-        else if (event.getEntity() instanceof Wither && config.getBoolean("Explosions.Stop Wither Spawn Block Damage")) {
+        else if (event.getEntity() instanceof Wither && config.getBoolean("Protections.Explosions.Stop Wither Spawn Block Damage")) {
             event.blockList().clear();
         }
         //If this is an Ender Dragon, cancel explosion block damage.
-        else if (event.getEntity() instanceof EnderDragon && config.getBoolean("Block Changes.Stop Ender Dragon Block Destruction")) {
+        else if (event.getEntity() instanceof EnderDragon && config.getBoolean("Protections.Block Changes.Stop Ender Dragon Block Destruction")) {
             event.blockList().clear();
         }
     }
@@ -65,16 +72,22 @@ public class EntityListener implements Listener {
             return;
         }
         
+        World world = event.getBlock().getWorld();
+        
+        if (config.getList("Global Settings.Ignore Worlds").contains(world.getName())) {
+            return;
+        }
+        
         //If this is an Enderman, don't let it change the block.
-        if (event.getEntity() instanceof Enderman && config.getBoolean("Block Changes.Stop Enderman Block Movement")) {
+        if (event.getEntity() instanceof Enderman && config.getBoolean("Protections.Block Changes.Stop Enderman Block Movement")) {
             event.setCancelled(true);
         }
         //If this is a Silverfish, don't let it change the block.
-        else if (event.getEntity() instanceof Silverfish && config.getBoolean("Block Changes.Stop Silverfish From Breaking Blocks")) {
+        else if (event.getEntity() instanceof Silverfish && config.getBoolean("Protections.Block Changes.Stop Silverfish From Breaking Blocks")) {
             event.setCancelled(true);
         }
         //If this is a Sheep, don't let it change the block.
-        else if (event.getEntity() instanceof Sheep && config.getBoolean("Block Changes.Stop Sheep From Eating Grass")) {
+        else if (event.getEntity() instanceof Sheep && config.getBoolean("Protections.Block Changes.Stop Sheep From Eating Grass")) {
             event.setCancelled(true);
             ((Sheep)event.getEntity()).setSheared(false);
         }
