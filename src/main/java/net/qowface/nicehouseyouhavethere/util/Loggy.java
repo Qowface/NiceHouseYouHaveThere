@@ -2,14 +2,14 @@ package net.qowface.nicehouseyouhavethere.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.qowface.nicehouseyouhavethere.NiceHouse;
+import org.bukkit.plugin.Plugin;
 
 public class Loggy {
     
-    private NiceHouse plugin;
+    private Plugin plugin;
     private Logger log;
     
-    public Loggy(NiceHouse plugin) {
+    public Loggy(Plugin plugin) {
         this.plugin = plugin;
         this.log = plugin.getLogger();
     }
