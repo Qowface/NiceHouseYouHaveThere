@@ -6,6 +6,11 @@ import net.qowface.nicehouseyouhavethere.util.Loggy;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * Main class.
+ * 
+ * @author Qowface
+ */
 public class NiceHouse extends JavaPlugin {
     
     public Loggy log;

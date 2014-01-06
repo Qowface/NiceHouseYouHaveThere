@@ -10,6 +10,11 @@ import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 
+/**
+ * Handles all Block events.
+ * 
+ * @author Qowface
+ */
 public class BlockListener implements Listener {
     
     private NiceHouse plugin;
@@ -20,35 +25,41 @@ public class BlockListener implements Listener {
         this.config = plugin.getConfig();
     }
     
-    @EventHandler(priority = EventPriority.NORMAL)
+    /**
+     * Prevents Blocks from burning.
+     * If the world isn't ignored and the protection is enabled in the
+     * configuration, prevents block from burning.
+     */
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onBlockBurn(BlockBurnEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        
         World world = event.getBlock().getWorld();
         
+        // If world is ignored, we're done
         if (config.getList("Global Settings.Ignore Worlds").contains(world.getName())) {
             return;
         }
         
+        // If protection enabled, cancel the event
         if (config.getBoolean("Protections.Fire.Stop Fire Spread")) {
             event.setCancelled(true);
         }
     }
     
-    @EventHandler(priority = EventPriority.NORMAL)
+    /**
+     * Prevents Blocks from igniting from fire spread.
+     * If the world isn't ignored and the protection is enabled in the
+     * configuration, prevents fire from spreading to other blocks.
+     */
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onBlockIgnite(BlockIgniteEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        
         World world = event.getBlock().getWorld();
         
+        // If world is ignored, we're done
         if (config.getList("Global Settings.Ignore Worlds").contains(world.getName())) {
             return;
         }
         
+        // If this is fire spread and protection enabled, cancel the event
         if (event.getCause() == IgniteCause.SPREAD && config.getBoolean("Protections.Fire.Stop Fire Spread")) {
             event.setCancelled(true);
         }
