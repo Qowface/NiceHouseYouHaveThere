@@ -1,3 +1,5 @@
+Config:
+  Debug: false
 Global Settings:
   Ignore Worlds: []
 Protections:

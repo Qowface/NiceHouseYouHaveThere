@@ -10,27 +10,22 @@ public class NiceHouse extends JavaPlugin {
     
     public Loggy log;
     
-    private EntityListener entityListener;
-    private BlockListener blockListener;
-    
     @Override
     public void onEnable() {
-        //Initialize logger
-        this.log = new Loggy(this);
-        
-        //Setup config
+        // Setup config
         if (getConfig().options().header() == null) {
             getConfig().options().copyHeader();
             getConfig().options().copyDefaults(true);
             saveConfig();
         }
         
-        //Listeners
+        // Initialize logger
+        log = new Loggy(this);
+        
+        // Register event listeners
         PluginManager pm = this.getServer().getPluginManager();
-        this.blockListener = new BlockListener(this);
-        pm.registerEvents(blockListener, this);
-        this.entityListener = new EntityListener(this);
-        pm.registerEvents(entityListener, this);
+        pm.registerEvents(new BlockListener(this), this);
+        pm.registerEvents(new EntityListener(this), this);
         
         this.log.info("Enabled");
     }
